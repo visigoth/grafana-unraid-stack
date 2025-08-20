@@ -41,4 +41,6 @@ RUN rm -Rf /testdasi
 ## VEH ##
 VOLUME ["/config"]
 ENTRYPOINT ["tini", "--", "/static-ubuntu/grafana-unraid-stack/entrypoint.sh"]
-HEALTHCHECK CMD /static-ubuntu/grafana-unraid-stack/healthcheck.sh
+
+ENV DISABLE_HEALTHCHECK=false
+HEALTHCHECK CMD if [ "$DISABLE_HEALTHCHECK" = "true" ]; then exit 0; else /static-ubuntu/grafana-unraid-stack/healthcheck.sh fi
