@@ -25,8 +25,9 @@ RUN echo "$(date "+%d.%m.%Y %T") Built from ${FRM}:${TAG}" >> /build.info
 RUN rm -Rf /testdasi \
     && mkdir -p /temp \
     && cd /temp \
-    && curl -sL "https://github.com/visigoth/static-ubuntu/releases/latest/download/archive.zip" | unzip -d /testdasi - \
-    && rm -Rf /testdasi/deprecated
+    && curl -sL "https://github.com/visigoth/static-ubuntu/releases/latest/download/archive.zip" -o /temp/temp.zip \
+    && unzip /temp/temp.zip -d /testdasi \
+    && rm -Rf /testdasi/deprecated /temp/temp.zip
 
 ## execute execute execute ##
 RUN /bin/bash /testdasi/scripts-install/install-grafana-unraid-stack.sh
